@@ -22,7 +22,7 @@ Simple, quick to set up stock notification bot for Nvidia 3080 that I used to ge
 1. Clone/Download the notifier.py file and the icon.ico file and put them in the same folder
 2. Download geckodriver
 3. Open the .env file in a text editor and fill in the variables.
-    -   Windows users can place `geckodriver.exe` in the same folder as the script. Otherwise, update `WEBDRIVER_PATH`
+    -   Windows users can place `msedgedriver.exe` in the same folder as the script. Otherwise, update `WEBDRIVER_PATH`
 	-	refer to the .env file for instructions on specific values.
 	-   Many features are optional, you can leave them blank if you don't want to use them.
 4. pip install dependencies
