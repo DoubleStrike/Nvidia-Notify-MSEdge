@@ -2,5 +2,6 @@
 .env
 geckodriver.log
 notifier-test.py
-geckodriver
+msedgedriver.exe
 geckodriver.exe
+*.7z

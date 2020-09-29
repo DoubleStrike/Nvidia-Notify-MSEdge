@@ -10,6 +10,7 @@ from enum import Enum
 import sys
 import requests
 from dotenv import load_dotenv
+import logging
 
 platform = platform.system()
 PLT_WIN = "Windows"
@@ -54,16 +55,25 @@ OPEN_WEB_BROWSER = getenv('OPEN_WEB_BROWSER') == 'true'
 with open('sites.json', 'r') as f:
     sites = json.load(f)
 
-# Selenium Setup
+# Selenium Setup - includes specific setup for MS Edge Chromium Webdriver
 if WEBDRIVER_PATH:
     USE_SELENIUM = True
-    print("Enabling Selenium... ", end='')
-    from selenium import webdriver
-    from selenium.webdriver.firefox.options import Options
+    print("Enabling Selenium/MSEdge... ", end='')
 
-    options = Options()
+    from msedge.selenium_tools import Edge, EdgeOptions
+    options = EdgeOptions()
+    options.use_chromium = True
     options.headless = True
-    driver = webdriver.Firefox(options=options, executable_path=WEBDRIVER_PATH)
+    options.page_load_strategy = 'eager'
+
+    # Set the threshold for selenium to WARNING
+    from selenium.webdriver.remote.remote_connection import LOGGER as seleniumLogger
+    seleniumLogger.setLevel(logging.WARNING)
+    # Set the threshold for urllib3 to WARNING
+    from urllib3.connectionpool import log as urllibLogger
+    urllibLogger.setLevel(logging.WARNING)
+    
+    driver = Edge(options = options)
     reload_count = 0
     print("Done!")
 
@@ -147,7 +157,7 @@ def selenium_get(url):
         reload_count = 0
         driver.close()
         driver.quit()
-        driver = webdriver.Firefox(options=options, executable_path=WEBDRIVER_PATH)
+        driver = Edge(options = options)
     return http
 
 
