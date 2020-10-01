@@ -4,6 +4,7 @@
 A fork of the Nvidia-Notify project using Microsoft Edge Chromium for better performance on Windows, and no need for Firefox.
 
 As originally described:
+
 Simple, quick to set up stock notification bot for Nvidia 3080 that I used to get my 3080. Less than 250 lines of code.
 
 [Check the Wiki!](https://github.com/samuelm2/Nvidia-Notify/wiki) - We'll post frequently asked questions, tips, and other useful info there.
