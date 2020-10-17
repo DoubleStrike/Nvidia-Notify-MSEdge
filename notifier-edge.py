@@ -225,9 +225,10 @@ def main():
                 elif not alert_on_found and index == -1:
                     alert(site)
 
-                base_sleep = 1
-                total_sleep = base_sleep + random.uniform(MIN_DELAY, MAX_DELAY)
-                sleep(total_sleep)
+        base_sleep = 1
+        total_sleep = base_sleep + random.uniform(MIN_DELAY, MAX_DELAY)
+        print("\t\tSleeping for {} seconds...".format(total_sleep))
+        sleep(total_sleep)
 
 
 if __name__ == '__main__':

@@ -15,7 +15,7 @@
     "alert": false,
     "method": "GET_API",
     "name": "Nvidia 3090",
-    "enabled": true
+    "enabled": false
   },
   {
     "url": "https://www.evga.com/products/productlist.aspx?type=0&family=GeForce+16+Series+Family&chipset=GTX+1650+Super",
@@ -26,11 +26,19 @@
     "enabled": false
   },
   {
-    "url": "https://www.newegg.com/p/pl?d=rtx+3080&N=100007709%20601357247",
+    "url": "https://www.newegg.com/p/pl?d=rtx+3080&N=100007709%20601357247%204841%2050001314%2050001315%2050001402",
     "keyword": "Add to cart",
     "alert": true,
     "method": "GET_URLLIB",
     "name": "Newegg 3080",
+    "enabled": true
+  },
+  {
+    "url": "https://www.newegg.com/p/pl?d=rtx+3090&N=4841%2050001315%2050001402%2050001314",
+    "keyword": "Add to cart",
+    "alert": true,
+    "method": "GET_URLLIB",
+    "name": "Newegg 3090",
     "enabled": true
   },
   {
@@ -39,7 +47,7 @@
     "alert": true,
     "method": "GET_URLLIB",
     "name": "BandH 3080",
-    "enabled": true
+    "enabled": false
   },
   {
     "url": "https://www.bestbuy.com/site/searchpage.jsp?st=3080",
@@ -47,7 +55,7 @@
     "alert": true,
     "method": "GET_SELENIUM",
     "name": "BestBuy 3080",
-    "enabled": true
+    "enabled": false
   },
   {
     "url": "https://www.bestbuy.com/site/searchpage.jsp?st=tv",
