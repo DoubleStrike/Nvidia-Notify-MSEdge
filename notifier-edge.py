@@ -9,6 +9,7 @@ from urllib.request import urlopen, Request
 from enum import Enum
 import sys
 import requests
+from requests.exceptions import Timeout
 from dotenv import load_dotenv
 import logging
 
@@ -65,6 +66,7 @@ if WEBDRIVER_PATH:
     options.use_chromium = True
     options.headless = True
     options.page_load_strategy = 'eager'
+    options.add_argument('log-level=3')
 
     # Set the threshold for selenium to WARNING
     from selenium.webdriver.remote.remote_connection import LOGGER as seleniumLogger
@@ -149,8 +151,11 @@ def selenium_get(url):
     global driver
     global reload_count
 
-    driver.get(url)
-    http = driver.page_source
+    try:
+        driver.get(url)
+        http = driver.page_source
+    except:
+        http = ''
 
     reload_count += 1
     if reload_count == 10:
@@ -162,20 +167,26 @@ def selenium_get(url):
 
 
 def urllib_get(url):
-    # for regular sites
-    # Fake a Firefox client
-    request = Request(url, headers={'User-Agent': 'Mozilla/5.0'})
-    page = urlopen(request, timeout=30)
-    html_bytes = page.read()
-    html = html_bytes.decode("utf-8")
-    return html
+    try:
+        # for regular sites
+        # Fake a Firefox client
+        request = Request(url, headers={'User-Agent': 'Mozilla/5.0'})
+        page = urlopen(request, timeout=10)
+        html_bytes = page.read()
+        html = html_bytes.decode("utf-8")
+        return html
+    except Timeout as ex:
+        return ''
 
 
 def nvidia_get(url, api_url):
-    response = requests.get(api_url, timeout=5)
-    item = response.json()
-    if item['products']['product'][0]['inventoryStatus']['status'] != "PRODUCT_INVENTORY_OUT_OF_STOCK":
-        alert(url)
+    try:
+        response = requests.get(api_url, timeout=5)
+        item = response.json()
+        if item['products']['product'][0]['inventoryStatus']['status'] != "PRODUCT_INVENTORY_OUT_OF_STOCK":
+            alert(url)
+    except Timeout as ex:
+        dummyvar = 1
 
 
 def is_test():
@@ -227,7 +238,7 @@ def main():
 
         base_sleep = 1
         total_sleep = base_sleep + random.uniform(MIN_DELAY, MAX_DELAY)
-        print("\t\tSleeping for {} seconds...".format(total_sleep))
+        print("\t\tSleeping for {0:.1f} seconds...".format(total_sleep))
         sleep(total_sleep)
 
 
